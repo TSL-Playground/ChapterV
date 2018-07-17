@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="drawing-board-style.css">
+  </head>
+
+  <body style = 'margin:0'>
+    <button id="clearButton"> Clear </button>
+
+    <!-- Managing Prompts -->
+    <p id="promptDrawing"></p>
+    <script type="text/javascript" src="prompts-and-explanation.js"></script>
+    <script> newPrompt(); </script>
+
+    <!-- Manage Active Drawing Area -->
+    <canvas id='activeDrawingArea' style="display: block;"></canvas>
+    <script type="text/javascript" src="active-drawing-area.js"></script>
+
+    <!-- clear canvas when clear button is clicked -->
+    <script>
+      document.getElementById("clearButton").onclick = clearCanvas;
+    </script>
+
+    <!-- Manage Action Card -->
+    <!-- TODO: add actual action card. Currently in the form of placeholder. -->
+    <div id="actionCardHolder1"> </div>
+    <div id="actionCardHolder2"> </div>
+    <div id="actionCardHolder3"> </div>
+  </body>
+</html>
