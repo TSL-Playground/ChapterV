@@ -1,0 +1,42 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  font-weight: 100;
+  font-size: 40px;
+  color: white;
+}
+
+#logo-placeholder {
+  margin-top: 20px;
+  width: 600px;
+  height: 300px;
+}
+
+#startButton, #howToPlayButton {
+  transition-duration: 0.4s;
+  background-color: #3775c6;
+  margin: auto;
+  margin-top: 20px;
+  border: none;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  width: 400px;
+  display: block;
+}
+
+/*.button {
+  transition-duration: 0.4s;
+  background-color: #3775c6;
+  border: none;
+  color: white;
+}*/
+
+#startButton:hover, #howToPlayButton:hover {
+  background-color: white;
+  color: #09356d;
+}
