@@ -10,13 +10,14 @@ body {
   color: white;
 }
 
-#prompt {
-  width: 100%;
-  border-style: solid;
-  border-color: #09356d;
+#yesButton {
   background-color: #3775c6;
-}
-
-#prompt1, #prompt2, #prompt3, #prompt4, #prompt5, #prompt6, #prompt7 {
   margin: auto;
+  margin-top: 10%;
+  border: none;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  width: 400px;
+  display: block;
 }

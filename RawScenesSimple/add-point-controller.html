@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="add-point-controller-style.css">
+  </head>
+
+  <body>
+    <div id='currentPoint'> Point: </div>
+    <p id='titleDiscuss'> Discuss! </p>
+    <p id="addPointDescription"> and add points for every necessary features you can find in your drawing.
+      If there's an unnecessary or missing features, remove the points! Every 2 unnecessary/missing features will
+      remove 1 point. The number of points is between 0 to 5. </p>
+
+    <div id='coin1'> </div>
+    <div id='coin2'> </div>
+    <div id='coin3'> </div>
+    <div id='coin4'> </div>
+    <div id='coin5'> </div>
+
+    <div id='minus1'> -1 </div>
+    <button id='addPointButton'> Add </button>
+    <button id='removePointButton'> Remove </button>
+    <button id='endDiscussionButton'> End Discussion </button>
+
+    <script type="text/javascript" src="add-remove-point.js"></script>
+    <script>
+      document.getElementById("addPointButton").onclick = addPoint;
+      document.getElementById("removePointButton").onclick = removePoint;
+    </script>
+  </body>
+</html>

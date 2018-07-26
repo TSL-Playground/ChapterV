@@ -1,0 +1,42 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  font-weight: 100;
+  font-size: 40px;
+  color: white;
+}
+
+#button1, #button2, #button3, #button4, #button5, #button6 {
+  background-color: #3775c6;
+  margin: auto;
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+  border: none;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  width: 100px;
+  display: inline-block;
+}
+
+#currentPoint {
+  float: right;
+  position: absolute;
+  display: inline-block;
+  right: 1%;
+  top: 0;
+}
+
+#title {
+  margin: auto;
+  margin-top: 10%;
+}
+
+#subtitle {
+  margin-top: 0;
+}

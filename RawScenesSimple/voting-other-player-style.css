@@ -1,0 +1,37 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  font-weight: 100;
+  font-size: 40px;
+  color: white;
+}
+
+#yesButton, #noButton {
+  background-color: #3775c6;
+  margin: auto;
+  margin-top: 5%;
+  margin-left: 4%;
+  margin-right: 5%;
+  border: none;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  width: 350px;
+  display: inline-block;
+}
+
+#currentPoint {
+  float: right;
+  position: absolute;
+  display: inline-block;
+  right: 1%;
+  top: 0;
+}
+
+#title {
+  margin-top: 12%;
+}

@@ -14,7 +14,7 @@ var prompts = [
 ]
 
 var promptLength = prompts.length;
-var playerPromptMap[10];
+var playerPromptMap = new Array(10);
 
 function newPrompt(noPlayer)
 {
@@ -39,9 +39,39 @@ function newPrompt(noPlayer)
   }
 }
 
+// Fisher-Yates Shuffle
+function shuffle(array)
+{
+  var left = array.length, tmp, i;
+
+  while(left)
+  {
+    i = Math.floor(Math.random() * left--);
+    tmp = array[left];
+    array[left] = array[i];
+    array[i] = tmp;
+  }
+
+  return array;
+}
+
 function getPrompt(noPlayer)
 {
-  var mapCopy = playerPromptMap.slice();
+  var order = [];
+  for(var i=0; i<noPlayer+1; i++) order.push(i);
+  order = shuffle(order);
+  var promptOrder = new Array(10);
+  for(var i=0; i<noPlayer+1; i++) promptOrder[i] = playerPromptMap[order[i]];
+  return promptOrder;
+}
+
+function printPrompt(noPlayer)
+{
+  var promptOrder = getPrompt(noPlayer);
+  for(var i=0; i<noPlayer+1; i++)
+  {
+    document.getElementById('prompt' + (i+1)).textContent += prompts[promptOrder[i]];
+  }
 }
 
 /*function newPrompt()
