@@ -22,13 +22,13 @@ function drawLine(pos)
 {
   if(isDragging)
   {
-    context.lineTo(pos.clientX, pos.clientY-offsetY);
+    context.lineTo(pos.touches[0].clientX, pos.touches[0].clientY-offsetY);
     context.stroke();
     context.beginPath();
-    context.arc(pos.clientX, pos.clientY-offsetY, lineRadius, 0, 2*Math.PI);
+    context.arc(pos.touches[0].clientX, pos.touches[0].clientY-offsetY, lineRadius, 0, 2*Math.PI);
     context.fill();
     context.beginPath();
-    context.moveTo(pos.clientX, pos.clientY-offsetY);
+    context.moveTo(pos.touches[0].clientX, pos.touches[0].clientY-offsetY);
   }
 }
 
@@ -50,6 +50,10 @@ function clearCanvas()
   context.beginPath();
 }
 
-canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('touchstart', startDraw);
+canvas.addEventListener('touchmove', drawLine);
+canvas.addEventListener('touchend', stopDraw);
+
+/*canvas.addEventListener('mousedown', startDraw);
 canvas.addEventListener('mousemove', drawLine);
-canvas.addEventListener('mouseup', stopDraw);
+canvas.addEventListener('mouseup', stopDraw);*/
