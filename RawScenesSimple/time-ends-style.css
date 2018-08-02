@@ -1,0 +1,11 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  background: #09356d;
+  font-weight: 100;
+  font-size: 40px;
+  color: white;
+  text-align: center;
+}

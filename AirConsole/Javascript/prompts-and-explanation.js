@@ -16,7 +16,7 @@ function newPrompt(noPlayer)
         playerPromptMap[i] = no;
         if(i < noPlayer)
         {
-          // TODO: display the prompt in topic-display.html
+          airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {prompt: prompts[no]});
         }
         else fakePrompt = no;
         break;
@@ -67,11 +67,3 @@ function printPrompt(noPlayer)
     document.getElementById('prompt' + (i+1)).textContent += prompts[promptOrder[i]];
   }
 }
-
-
-
-/*function newPrompt()
-{
-  var randomNo = Math.floor(Math.random() * prompts.length);
-  document.getElementById('promptDrawing').textContent = prompts[randomNo];
-}*/

@@ -1,9 +1,147 @@
 <html>
   <head>
+     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
      <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+
+     <!-- ALL ABOUT PROMPTS -->
+     <script type="text/javascript" src="Javascript/write-prompts.js"></script>
+     <script type="text/javascript" src="Javascript/prompts-and-explanation.js"></script>
+
+     <!-- MENU STYLE -->
+     <link rel="stylesheet" id="menu-style" type="text/css" href="CSS/screen-style/menu-style.css"/>
+
+     <!-- HOW TO PLAY STYLE -->
+
+
+     <!-- DRAWING TIMER STYLE -->
+     <link rel="alternate stylesheet" id="timer-drawing-style" disabled=true type="text/css" href="CSS/screen-style/timer-drawing-style.css"/>
+
+     <!-- DISPLAY ALL PROMPTS STARTS -->
+     <!-- DISPLAY ALL PROMPTS ENDS -->
+
+     <!-- DISPLAY TOPIC WITH DESCRIPTION STARTS -->
+     <!-- DISPLAY TOPIC WITH DESCRIPTION ENDS -->
+
+     <!-- BONUS ROUND DISCUSSION STARTS -->
+     <!-- BONUS ROUND DISCUSSION ENDS -->
+
+     <!-- CURRENT SCORE ALL PLAYER STARTS -->
+     <!-- CURRENT SCORE ALL PLAYER ENDS -->
+
+     <!-- Screen Manager -->
+     <script type="text/javascript" src="Javascript/scene-manager.js"> </script>
+     <script>
+        function hideAll()
+        {
+          hideTimerDrawing();
+        }
+     </script>
+
+     <!-- AIRCONSOLE SCREEN SETUP -->
+     <script type="text/javascript">
+        var airconsole;
+        var noActivePlayer = 0;
+        function setupConsole() {
+          airconsole = new AirConsole();
+
+          airconsole.onConnect = function(device_id) {
+            checkEnoughPlayers();
+          };
+
+          airconsole.onDisconnect = function(device_id) {
+            var player = airconsole.convertDeviceIdToPlayerNumber(device_id);
+            if (player != undefined) {
+              // Player that was in game left the game.
+              // Setting active players to length 0.
+              airconsole.setActivePlayers(0);
+            }
+            checkEnoughPlayers();
+          };
+
+          airconsole.onMessage = function(device_id, data) {
+            var player = airconsole.convertDeviceIdToPlayerNumber(device_id);
+            if (player != undefined && data.isStartButtonPressed !== undefined) {
+              hideMenu();
+              showTimerDrawing();
+              countDown();
+              newPrompt(Math.min(6, noActivePlayer));
+            }
+          };
+
+        }
+        /**
+         * Checks if 3-6 players are connected!
+         */
+        function checkEnoughPlayers() {
+          var active_players = airconsole.getActivePlayerDeviceIds();
+          var connected_controllers = airconsole.getControllerDeviceIds();
+          // Only update if the game didn't have active players.
+         if (connected_controllers.length >= 6) {
+            // Enough controller devices connected to start the game.
+            // Setting the first 6 controllers to active players.
+            airconsole.setActivePlayers(6);
+            noActivePlayer = 6;
+            document.getElementById("wait").innerHTML = "";
+         } else if (connected_controllers.length >= 3){
+            airconsole.setActivePlayers(connected_controllers.length);
+            noActivePlayer = connected_controllers.length;
+            document.getElementById("wait").innerHTML = "";
+         } else if (connected_controllers.length == 2){
+            document.getElementById("wait").innerHTML = "Need at least 1 more players!";
+         } else if (connected_controllers.length == 1) {
+            document.getElementById("wait").innerHTML = "Need at least 2 more players!";
+         } else if (connected_controllers.length == 0) {
+            document.getElementById("wait").innerHTML = "Need at least 3 more players!";
+         }
+        }
+
+        function init() {
+          setupConsole();
+          hideAll();
+        }
+     </script>
   </head>
 
-  <body>
+  <body onload="init()">
+    <!-- MENU SCENE STARTS -->
+    <div id="menu">
+      <img id="logo" src="logo-white.png">
+      <button id="startButton"> Start </button>
+      <button id="howToPlayButton"> How to Play </button>
+      <!-- TODO: add "# players available at bottom right of screen" -->
+    </div>
+    <!-- MENU SCENE ENDS -->
 
+    <!-- HOW TO PLAY SCENE STARTS -->
+    <!-- HOW TO PLAY SCENE ENDS -->
+
+    <!-- DRAWING TIMER SCENE & TOPIC DISPLAY STARTS -->
+    <div id="timer-drawing">
+      <div id = "timerDisplay">
+        <div>
+          <span id="seconds"> </span>
+          <div id="timerText"> seconds </div>
+        </div>
+      </div>
+      <div id="timeEnd"> </div>
+      <script type="text/javascript" src="Javascript/timer-drawing.js"></script>
+
+    </div>
+    <!-- DRAWING TIMER SCENE ENDS -->
+
+    <!-- DISPLAY ALL PROMPTS STARTS -->
+    <!-- DISPLAY ALL PROMPTS ENDS -->
+
+    <!-- DISPLAY TOPIC WITH DESCRIPTION STARTS -->
+    <!-- DISPLAY TOPIC WITH DESCRIPTION ENDS -->
+
+    <!-- BONUS ROUND DISCUSSION STARTS -->
+    <!-- BONUS ROUND DISCUSSION ENDS -->
+
+    <!-- CURRENT SCORE ALL PLAYER STARTS -->
+    <!-- CURRENT SCORE ALL PLAYER ENDS -->
+
+    <div id="wait"></div>
   </body>
 </html>

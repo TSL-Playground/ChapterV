@@ -1,0 +1,5 @@
+1. Analogy: finding the underlying similarity between diverse instances. Help people learn principles and apply those in new situation.
+
+2. Surface Features: readily perceived properties in things. For example, "Deluge is to Droplet as Beach is to Wave" share surface features because they all involve water.
+
+3. Deep Structure: 

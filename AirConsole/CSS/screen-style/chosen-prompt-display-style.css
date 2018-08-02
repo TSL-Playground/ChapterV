@@ -1,0 +1,22 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  font-weight: 100;
+  font-size: 40px;
+  color: white;
+}
+
+#prompt {
+  width: 100%;
+  border-style: solid;
+  border-color: #09356d;
+  background-color: #3775c6;
+}
+
+#prompt1, #prompt2, #prompt3, #prompt4, #prompt5, #prompt6, #prompt7 {
+  margin: auto;
+}

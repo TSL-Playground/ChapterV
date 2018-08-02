@@ -1,9 +1,146 @@
 <html>
   <head>
+     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
      <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+
+     <!-- MENU STYLE -->
+     <link rel="stylesheet" id="menu-controller-style" type="text/css" href="CSS/controller-style/menu-controller-style.css"/>
+
+     <!-- HOW TO PLAY STYLE -->
+
+     <!-- DRAWING TIMER SCENE STYLE -->
+     <link rel="alternate stylesheet" id="topic-display-style" disabled=true type="text/css" href="CSS/controller-style/topic-display-style.css"/>
+     <link rel="alternate stylesheet" id="time-ends-style" disabled=true type="text/css" href="CSS/controller-style/time-ends-style.css"/>
+     <!-- DISPLAY ALL PROMPTS STARTS -->
+     <!-- DISPLAY ALL PROMPTS ENDS -->
+
+     <!-- DISPLAY TOPIC WITH DESCRIPTION STARTS -->
+     <!-- DISPLAY TOPIC WITH DESCRIPTION ENDS -->
+
+     <!-- BONUS ROUND DISCUSSION STARTS -->
+     <!-- BONUS ROUND DISCUSSION ENDS -->
+
+     <!-- CURRENT SCORE ALL PLAYER STARTS -->
+     <!-- CURRENT SCORE ALL PLAYER ENDS -->
+
+     <!-- Scene Manager -->
+     <script type="text/javascript" src="Javascript/scene-manager.js"> </script>
+     <script>
+        function hideAll()
+        {
+          hideTopicDisplay();
+          hideTimeEnds();
+        }
+     </script>
+
+     <!-- Airconsole Controller Setup -->
+     <script type="text/javascript">
+       navigator.vibrate = (navigator.vibrate ||
+                            navigator.webkitVibrate ||
+                            navigator.mozVibrate ||
+                            navigator.msVibrate);
+
+       var airconsole;
+       /**
+        * Sets up the communication to the screen.
+        */
+       function init() {
+         airconsole = new AirConsole({"orientation": "landscape"});
+
+         /*
+          * Checks if this device is part of the active game.
+          */
+         airconsole.onActivePlayersChange = function(player) {
+           /*var div = document.getElementById("player_id");
+           if (player !== undefined && 3 <= player && player <= 6) {
+             div.innerHTML =  (["Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6"][player]);
+           } else {
+             div.innerHTML = "This game can be played by 3-6 people!";
+           }*/
+         };
+
+         /*
+          * Makes the device vibrate if the screen says so.
+          */
+         airconsole.onMessage = function(from, data) {
+           if (from == AirConsole.SCREEN && data.vibrate)
+           {
+             navigator.vibrate(data.vibrate);
+             console.log("Vibrating: " + data.vibrate);
+           }
+           if (data.isStartButtonPressed)
+           {
+             hideMenuController();
+             showTopicDisplay();
+           }
+           if (from == AirConsole.SCREEN && data.prompt!=null)
+           {
+             document.getElementById("promptDrawing").textContent = data.prompt;
+           }
+           if (from == AirConsole.SCREEN && data.drawingTimeEnds)
+           {
+             hideTopicDisplay();
+             showTimeEnds();
+           }
+         };
+       }
+
+       function checkEnoughPlayers() {
+         var active_players = airconsole.getActivePlayerDeviceIds();
+         var connected_controllers = airconsole.getControllerDeviceIds();
+         if (connected_controllers.length < 3) return false;
+         else return true;
+       }
+
+     </script>
   </head>
 
-  <body>
+  <body onload="init(); hideAll();">
+    <!-- MENU SCENE STARTS -->
+    <div id = "menu-controller">
+      <button id="leftButton"> Start </button>
+      <button id="rightButton"> How to Play </button>
+      <!-- Start Button Pressed -->
+      <script>
+        document.getElementById("leftButton").onclick = function() {
+          if(checkEnoughPlayers())
+          {
+            hideMenuController();
+            showTopicDisplay();
+            airconsole.broadcast({isStartButtonPressed: true})
+          }
+        };
+      </script>
+    </div>
+    <!-- MENU SCENE ENDS -->
 
+    <!-- HOW TO PLAY SCENE STARTS -->
+    <!-- HOW TO PLAY SCENE ENDS -->
+
+    <!-- DRAWING TOPIC SCENE STARTS -->
+    <div id = "topic-display">
+      <h1 id="yourTopicIs"> Draw </h1>
+      <p id="promptDrawing"> </p>
+    </div>
+    <!-- DRAWING TOPIC SCENE ENDS -->
+
+    <!-- TIME ENDS SCENE STARTS -->
+    <div id = "time-ends">
+      <h1> Time Ends!! </h1>
+    </div>
+    <!-- TIME ENDS SCENE ENDS -->
+
+    <!-- DISPLAY ALL PROMPTS STARTS -->
+    <!-- DISPLAY ALL PROMPTS ENDS -->
+
+    <!-- DISPLAY TOPIC WITH DESCRIPTION STARTS -->
+    <!-- DISPLAY TOPIC WITH DESCRIPTION ENDS -->
+
+    <!-- BONUS ROUND DISCUSSION STARTS -->
+    <!-- BONUS ROUND DISCUSSION ENDS -->
+
+    <!-- CURRENT SCORE ALL PLAYER STARTS -->
+    <!-- CURRENT SCORE ALL PLAYER ENDS -->
   </body>
 </html>
