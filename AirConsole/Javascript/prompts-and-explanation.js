@@ -69,6 +69,7 @@ function printPrompt(noPlayer)
 }
 
 var currentPrompt = 0;
+var currentPlayerProcessed;
 
 function printPromptOneByOne()
 {
@@ -78,7 +79,11 @@ function printPromptOneByOne()
   document.getElementById('topicDescription').textContent = promptDesc[promptOrder[currentPrompt]];
   for(var i=0; i<noActivePlayer; i++)
   {
-    if(promptOrder[currentPrompt]==playerPromptMap[i]) airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingPlayerA: true});
+    if(promptOrder[currentPrompt]==playerPromptMap[i])
+    {
+      currentPlayerProcessed = i;
+      airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingPlayerA: true});
+    }
     else airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingOtherPlayer: true});
   }
   currentPrompt++;

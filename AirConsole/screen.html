@@ -23,11 +23,8 @@
      <!-- DISPLAY TOPIC WITH DESCRIPTION STYLE -->
      <link rel="alternate stylesheet" id="topic-with-desc-style" disabled=true type="text/css" href="CSS/screen-style/topic-with-desc-style.css">
 
-     <!-- BONUS ROUND DISCUSSION STARTS -->
-     <!-- BONUS ROUND DISCUSSION ENDS -->
-
-     <!-- CURRENT SCORE ALL PLAYER STARTS -->
-     <!-- CURRENT SCORE ALL PLAYER ENDS -->
+     <!-- CURRENT SCORE ALL PLAYER STYLE -->
+     <link rel="alternate stylesheet" id="all-player-score-style" disabled=true type="text/css" href="CSS/screen-style/all-player-score-style.css">
 
      <!-- Screen Manager -->
      <script type="text/javascript" src="Javascript/scene-manager.js"> </script>
@@ -37,6 +34,7 @@
           hideTimerDrawing();
           hideChosenPromptDisplay();
           hideTopicWithDesc();
+          hideAllPlayerScore();
         }
      </script>
 
@@ -90,15 +88,25 @@
               }
             }
 
-            if (player != undefined && data.noPeopleCorrect !== undefined)
+            if (player !== undefined && data.noPeopleCorrect !== undefined)
             {
-              addScore(airconsole.convertDeviceIdToPlayerNumber(player), data.noPeopleCorrect);
+              addScore(player, data.noPeopleCorrect);
             }
 
-            if(data.showCurrentScore)
+            if (data.addBonusPointToDevice !== undefined)
             {
-              printCurrentScore();
+              addBonusPoint(data.addBonusPointToDevice);
             }
+
+            if (data.showCurrentScore) { printCurrentScore(); }
+
+            if (data.pressEndDiscussionButton)
+            {
+              hideTopicWithDesc();
+              showAllPlayerScore();
+              printAllScore();
+            }
+
           };
 
         }
@@ -186,10 +194,11 @@
     </div>
     <!-- DISPLAY TOPIC WITH DESCRIPTION ENDS -->
 
-    <!-- BONUS ROUND DISCUSSION STARTS -->
-    <!-- BONUS ROUND DISCUSSION ENDS -->
-
     <!-- CURRENT SCORE ALL PLAYER STARTS -->
+    <div id = "all-player-score">
+      <h1 id = "currentScoreTitle"> Current Score: </h1>
+      <p id = "listCurrentScore"> </p>
+    </div>
     <!-- CURRENT SCORE ALL PLAYER ENDS -->
 
     <div id="wait"></div>

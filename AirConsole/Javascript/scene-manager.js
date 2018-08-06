@@ -168,10 +168,45 @@ function hideVotingPlayerA()
 // CONTROLLER
 function showAddPointController()
 {
-
+  var x = document.getElementById("add-point-controller");
+  x.style.display = "block";
+  jQuery('#add-point-controller-style').removeAttr('disabled').attr('rel', 'stylesheet');
 }
 
 function hideAddPointController()
 {
+  var x = document.getElementById("add-point-controller");
+  x.style.display = "none";
+  jQuery('#add-point-controller-style').attr('disabled', true).attr('rel', 'alternate stylesheet');
+}
 
+// ----------- Show/Hide All Player Score -------------
+// SCREEN
+function showAllPlayerScore()
+{
+  var x = document.getElementById("all-player-score");
+  x.style.display = "block";
+  jQuery('#all-player-score-style').removeAttr('disabled').attr('rel', 'stylesheet');
+}
+
+function hideAllPlayerScore()
+{
+  var x = document.getElementById("all-player-score");
+  x.style.display = "none";
+  jQuery('#all-player-score-style').attr('disabled', true).attr('rel', 'alternate stylesheet');
+}
+
+// CONTROLLER
+function showAllPlayerScoreController()
+{
+  var x = document.getElementById("all-player-score-controller");
+  x.style.display = "block";
+  jQuery('#all-player-score-controller-style').removeAttr('disabled').attr('rel', 'stylesheet');
+}
+
+function hideAllPlayerScoreController()
+{
+  var x = document.getElementById("all-player-score-controller");
+  x.style.display = "none";
+  jQuery('#all-player-score-controller-style').attr('disabled', true).attr('rel', 'alternate stylesheet');
 }

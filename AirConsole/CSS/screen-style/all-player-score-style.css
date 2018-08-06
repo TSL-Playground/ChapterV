@@ -1,0 +1,14 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  font-size: 70px;
+  color: white;
+}
+
+#listCurrentScore {
+  white-space: pre;
+}

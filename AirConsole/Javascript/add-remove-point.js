@@ -1,9 +1,11 @@
 var currentBonusPoint = 0;
 var removeCount = 0;
 
-window.onload = function()
+function hideCoinsInit()
 {
    var coins;
+   currentBonusPoint = 0;
+   removeCount = 0;
    for(var i=1; i<=5; i++)
    {
       coins = document.getElementById("coin" + i);

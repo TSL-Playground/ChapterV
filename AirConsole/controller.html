@@ -4,6 +4,8 @@
 
      <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
 
+     <script type="text/javascript" src="Javascript/add-remove-point.js"></script>
+
      <!-- MENU STYLE -->
      <link rel="stylesheet" id="menu-controller-style" type="text/css" href="CSS/controller-style/menu-controller-style.css"/>
 
@@ -14,19 +16,19 @@
      <link rel="alternate stylesheet" id="time-ends-style" disabled=true type="text/css" href="CSS/controller-style/time-ends-style.css"/>
 
      <!-- DISPLAY ALL PROMPTS STYLE -->
-     <link rel="alternate stylesheet" id="chosen-prompt-controller-style" disabled=true type="text/css" href="CSS/controller-style/chosen-prompt-controller-style.css">
+     <link rel="alternate stylesheet" id="chosen-prompt-controller-style" disabled=true type="text/css" href="CSS/controller-style/chosen-prompt-controller-style.css"/>
 
      <!-- DISPLAY VOTING PLAYER A STYLE -->
-     <link rel="alternate stylesheet" id="voting-player-a-controller-style" disabled=true type="text/css" href="CSS/controller-style/voting-player-a-style.css">
+     <link rel="alternate stylesheet" id="voting-player-a-controller-style" disabled=true type="text/css" href="CSS/controller-style/voting-player-a-style.css"/>
 
      <!-- DISPLAY VOTING OTHER PLAYER STYLE -->
-     <link rel="alternate stylesheet" id="voting-other-player-controller-style" disabled=true type="text/css" href="CSS/controller-style/voting-other-player-style.css">
+     <link rel="alternate stylesheet" id="voting-other-player-controller-style" disabled=true type="text/css" href="CSS/controller-style/voting-other-player-style.css"/>
 
-     <!-- BONUS ROUND DISCUSSION STARTS -->
-     <!-- BONUS ROUND DISCUSSION ENDS -->
+     <!-- BONUS ROUND DISCUSSION STYLE -->
+     <link rel="alternate stylesheet" id="add-point-controller-style" disabled=true type="text/css" href="CSS/controller-style/add-point-controller-style.css"/>
 
-     <!-- CURRENT SCORE ALL PLAYER STARTS -->
-     <!-- CURRENT SCORE ALL PLAYER ENDS -->
+     <!-- CURRENT SCORE ALL PLAYER STYLE -->
+     <link rel="alternate stylesheet" id="all-player-score-controller-style" disabled=true type="text/css" href="CSS/controller-style/all-player-score-controller-style.css"/>
 
      <!-- Scene Manager -->
      <script type="text/javascript" src="Javascript/scene-manager.js"> </script>
@@ -40,6 +42,8 @@
           hideVotingOtherPlayer();
           hideVotingPlayerA();
           hideAddPointController();
+          hideCoinsInit();
+          hideAllPlayerScoreController();
         }
      </script>
 
@@ -103,13 +107,11 @@
            }
            if (data.votingPlayerA)
            {
-             hideAddPointController();
              showVotingPlayerA();
              airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
            }
            else if (data.votingOtherPlayer)
            {
-             hideAddPointController();
              showVotingOtherPlayer();
              airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
            }
@@ -118,6 +120,21 @@
            {
              document.getElementById("currentPoint1").textContent = "Score: " + data.deviceCurrentScore;
              document.getElementById("currentPoint2").textContent = "Score: " + data.deviceCurrentScore;
+             document.getElementById("currentPoint3").textContent = "Score: " + data.deviceCurrentScore;
+           }
+
+           if(data.pressAddPointButton !== undefined)
+           {
+             addPoint();
+           }
+           if(data.pressRemovePointButton !== undefined)
+           {
+             removePoint();
+           }
+           if(data.pressEndDiscussionButton !== undefined)
+           {
+             hideAddPointController();
+             showAllPlayerScoreController();
            }
          };
        }
@@ -202,31 +219,37 @@
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 1});
           hideVotingPlayerA();
           showAddPointController();
+          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
         }
         document.getElementById("button2").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 2});
           hideVotingPlayerA();
           showAddPointController();
+          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
         }
         document.getElementById("button3").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 3});
           hideVotingPlayerA();
           showAddPointController();
+          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
         }
         document.getElementById("button4").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 4});
           hideVotingPlayerA();
           showAddPointController();
+          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
         }
         document.getElementById("button5").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 5});
           hideVotingPlayerA();
           showAddPointController();
+          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
         }
         document.getElementById("button6").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 6});
           hideVotingPlayerA();
           showAddPointController();
+          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
         }
       </script>
     </div>
@@ -243,20 +266,65 @@
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 1});
           hideVotingOtherPlayer();
           showAddPointController();
+          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
         }
         document.getElementById("noButton2").onclick = function() {
           hideVotingOtherPlayer();
           showAddPointController();
+          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
         }
       </script>
     </div>
     <!-- DISPLAY VOTING OTHER PLAYER ENDS -->
 
     <!-- BONUS ROUND DISCUSSION STARTS -->
-    
+    <div id = "add-point-controller">
+      <p id='currentPoint3'> Point: </p>
+      <p id='titleDiscuss'> Discuss! </p>
+      <p id="addPointDescription"> and add points for every necessary features you can find in your drawing.
+        If there's an unnecessary or missing features, remove the points! Every 2 unnecessary/missing features will
+        remove 1 point. The number of points is between 0 to 5. </p>
+
+      <div id='coin1'> </div>
+      <div id='coin2'> </div>
+      <div id='coin3'> </div>
+      <div id='coin4'> </div>
+      <div id='coin5'> </div>
+
+      <div id='minus1'> -1 </div>
+      <button id='addPointButton'> Add </button>
+      <button id='removePointButton'> Remove </button>
+      <button id='endDiscussionButton'> End Discussion </button>
+
+      <script>
+        document.getElementById("addPointButton").onclick = function() {
+          addPoint();
+          airconsole.broadcast({pressAddPointButton: true});
+        }
+        document.getElementById("removePointButton").onclick = function() {
+          removePoint();
+          airconsole.broadcast({pressRemovePointButton: true});
+        }
+        document.getElementById("endDiscussionButton").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {addBonusPointToDevice: currentBonusPoint});
+          airconsole.broadcast({pressEndDiscussionButton: true});
+          hideAddPointController();
+          showAllPlayerScoreController();
+        }
+      </script>
+    </div>
     <!-- BONUS ROUND DISCUSSION ENDS -->
 
     <!-- CURRENT SCORE ALL PLAYER STARTS -->
+    <div id="all-player-score-controller">
+      <h1> Continue Game? </h1>
+      <button id='yesButton3'> Yes </button>
+      <script>
+      document.getElementById("yesButton3").onclick = function() {
+
+      }
+      </script>
+    </div>
     <!-- CURRENT SCORE ALL PLAYER ENDS -->
   </body>
 </html>
