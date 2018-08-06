@@ -46,6 +46,7 @@
         var airconsole;
         var noActivePlayer = 0;
         var doneVoting = 0;
+        var doneAnswer = 0;
 
         function setupConsole()
         {
@@ -88,6 +89,17 @@
               }
             }
 
+            if (player != undefined && data.isFinishedAnswer !== undefined)
+            {
+              // Check whether all devices have inputted their points
+              doneAnswer++;
+              if(doneAnswer >= noActivePlayer)
+              {
+                 airconsole.broadcast({allPlayerAnswered: true});
+                 doneAnswer = 0;
+              }
+            }
+
             if (player !== undefined && data.noPeopleCorrect !== undefined)
             {
               addScore(player, data.noPeopleCorrect);
@@ -103,10 +115,19 @@
             if (data.pressEndDiscussionButton)
             {
               hideTopicWithDesc();
-              showAllPlayerScore();
-              printAllScore();
+              if(currentPrompt >= noActivePlayer)
+              {
+                currentPrompt = 0;
+                showAllPlayerScore();
+                printAllScore();
+                airconsole.broadcast({CurrentScorePlayer: true});
+              }
+              else
+              {
+                showTopicWithDesc();
+                printPromptOneByOne();
+              }
             }
-
           };
 
         }

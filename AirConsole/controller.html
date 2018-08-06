@@ -105,6 +105,13 @@
            {
              hideWaitForOthers();
            }
+           if (from == AirConsole.SCREEN && data.allPlayerAnswered)
+           {
+             hideWaitForOthers();
+             showAddPointController();
+             hideCoinsInit();
+             airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+           }
            if (data.votingPlayerA)
            {
              showVotingPlayerA();
@@ -134,6 +141,9 @@
            if(data.pressEndDiscussionButton !== undefined)
            {
              hideAddPointController();
+           }
+           if (data.CurrentScorePlayer !== undefined)
+           {
              showAllPlayerScoreController();
            }
          };
@@ -191,7 +201,7 @@
       <!-- Yes button pressed -->
       <script>
         document.getElementById("yesButton").onclick = function() {
-          airconsole.message(AirConsole.SCREEN, {isFinishedVoting: true})
+          airconsole.message(AirConsole.SCREEN, {isFinishedVoting: true});
           hideChosenPromptController();
           showWaitForOthers();
         };
@@ -218,38 +228,38 @@
         document.getElementById("button1").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 1});
           hideVotingPlayerA();
-          showAddPointController();
-          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button2").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 2});
           hideVotingPlayerA();
-          showAddPointController();
-          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button3").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 3});
           hideVotingPlayerA();
-          showAddPointController();
-          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button4").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 4});
           hideVotingPlayerA();
-          showAddPointController();
-          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button5").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 5});
           hideVotingPlayerA();
-          showAddPointController();
-          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button6").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 6});
           hideVotingPlayerA();
-          showAddPointController();
-          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
       </script>
     </div>
@@ -265,13 +275,13 @@
         document.getElementById("yesButton2").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 1});
           hideVotingOtherPlayer();
-          showAddPointController();
-          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("noButton2").onclick = function() {
           hideVotingOtherPlayer();
-          showAddPointController();
-          airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
       </script>
     </div>
@@ -309,7 +319,6 @@
           airconsole.message(AirConsole.SCREEN, {addBonusPointToDevice: currentBonusPoint});
           airconsole.broadcast({pressEndDiscussionButton: true});
           hideAddPointController();
-          showAllPlayerScoreController();
         }
       </script>
     </div>

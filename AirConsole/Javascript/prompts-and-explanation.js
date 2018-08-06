@@ -87,5 +87,4 @@ function printPromptOneByOne()
     else airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingOtherPlayer: true});
   }
   currentPrompt++;
-  if(currentPrompt >= noActivePlayer) currentPrompt = 0;
 }
