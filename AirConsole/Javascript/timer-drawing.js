@@ -1,3 +1,20 @@
+// Time Ends Scene Countdown
+function coolDown()
+{
+  var timeLimit = 3; // in seconds
+  var x = setInterval(function() {
+    timeLimit--;
+    if(timeLimit <= 0)
+    {
+      clearInterval(x);
+      airconsole.broadcast({coolDownEnds: true});
+      hideTimerDrawing();
+      showChosenPromptDisplay();
+      printPrompt(noActivePlayer);
+    }
+  }, 1000);
+}
+
 function countDown()
 {
   // Drawing Countdown
@@ -10,7 +27,8 @@ function countDown()
       clearInterval(x);
       document.getElementById("timeEnd").innerHTML = "Time Ends!";
       document.getElementById("seconds").innerHTML = "0";
-      airconsole.broadcast({drawingTimeEnds: true})
+      airconsole.broadcast({drawingTimeEnds: true});
+      coolDown();
     }
     document.getElementById("seconds").innerHTML = timeLimit;
   }, 1000);

@@ -67,3 +67,20 @@ function printPrompt(noPlayer)
     document.getElementById('prompt' + (i+1)).textContent += prompts[promptOrder[i]];
   }
 }
+
+var currentPrompt = 0;
+
+function printPromptOneByOne()
+{
+  if(promptOrder[currentPrompt] == fakePrompt) currentPrompt++;
+  document.getElementById('topicLetter').textContent = String.fromCharCode(currentPrompt+65);
+  document.getElementById('topicDescTitle').textContent = prompts[promptOrder[currentPrompt]];
+  document.getElementById('topicDescription').textContent = promptDesc[promptOrder[currentPrompt]];
+  for(var i=0; i<noActivePlayer; i++)
+  {
+    if(promptOrder[currentPrompt]==playerPromptMap[i]) airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingPlayerA: true});
+    else airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingOtherPlayer: true});
+  }
+  currentPrompt++;
+  if(currentPrompt >= noActivePlayer) currentPrompt = 0;
+}

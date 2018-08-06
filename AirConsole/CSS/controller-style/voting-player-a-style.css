@@ -5,8 +5,6 @@ html {
 body {
   text-align: center;
   background: #09356d;
-  font-weight: 100;
-  font-size: 40px;
   color: white;
 }
 
@@ -19,12 +17,12 @@ body {
   border: none;
   text-align: center;
   color: white;
-  font-size: 50px;
+  font-size: 30px;
   width: 100px;
   display: inline-block;
 }
 
-#currentPoint {
+#currentPoint1 {
   float: right;
   position: absolute;
   display: inline-block;
@@ -32,11 +30,17 @@ body {
   top: 0;
 }
 
-#title {
+#title1 {
+  font-weight: 100;
+  font-size: 25px;
+  color: white;
   margin: auto;
   margin-top: 10%;
 }
 
-#subtitle {
+#subtitle1 {
+  font-weight: 100;
+  font-size: 20px;
+  color: white;
   margin-top: 0;
 }

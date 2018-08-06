@@ -9,14 +9,23 @@ body {
   color: white;
 }
 
-#promptDrawing {
+#topicLetter {
+  margin: auto;
+  margin-top: -1%;
+}
+
+#topicDescTitle {
+  margin: auto;
+  font-size: 70px;
+}
+
+#topicDescription {
   text-align: center;
   margin: auto;
-  margin-top: -10%;
   width: 85%;
   border-style: solid;
   border-color: #09356d;
   background-color: #3775c6;
   color: white;
-  font-size: 80px;
+  font-size: 40px;
 }

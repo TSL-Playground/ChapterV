@@ -5,12 +5,9 @@ html {
 body {
   text-align: center;
   background: #09356d;
-  font-weight: 100;
-  font-size: 40px;
-  color: white;
 }
 
-#yesButton, #noButton {
+#yesButton2, #noButton2 {
   background-color: #3775c6;
   margin: auto;
   margin-top: 5%;
@@ -19,19 +16,23 @@ body {
   border: none;
   text-align: center;
   color: white;
-  font-size: 50px;
+  font-size: 30px;
   width: 350px;
   display: inline-block;
 }
 
-#currentPoint {
+#currentPoint2 {
   float: right;
   position: absolute;
   display: inline-block;
   right: 1%;
   top: 0;
+  color: white;
 }
 
-#title {
+#title2 {
+  font-weight: 100;
+  font-size: 30px;
+  color: white;
   margin-top: 12%;
 }

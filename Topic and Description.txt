@@ -2,4 +2,16 @@
 
 2. Surface Features: readily perceived properties in things. For example, "Deluge is to Droplet as Beach is to Wave" share surface features because they all involve water.
 
-3. Deep Structure: 
+3. Deep Structure: properties in things that are not easily seen. For example, "Deluge is to Droplet as Landslide is to Pebble" shares the same deep structure: a disaster can result from accumulation of many harmless events. This is the key of using analogies to learn: find common principle despite differences at the surface.
+
+4. Explaining New Idea: a way to use analogies in learning is to explain a new idea by making an analogy  to a more familiar one. For example: teaching the idea of blood vessels by making reference to highways.
+
+5. Negative Transfer: using something memorized but in the wrong situation. For example, a student learn how to solve a combinatoric problem that involves dice. They then assume that all problems that use dice in the problems mean that it's combinatorics problems (they use the object (dice) in the problem as the cue).
+
+6. Positive Transfer: People who appropriately apply what they had learned in a new situation. For example: instead of having only dice as the object in permutation problems, teacher can use cars, dice, balls, etc. so students won't associate only few objects to certain topics.
+
+7. Critical Outcome of Analogy: the ability to transfer key concept to a new situation. Students will be able to solve new problems on their own, without teacher telling them which concept they should be using.
+
+8. Unintended Deep Structure: one of the risks of using analogies is that students may find a deep structure that is unintended by the examples. 
+
+9. Bad Analogy: Another risk of using analogies is not precisely aligning them. For example: 

@@ -17,11 +17,11 @@
      <!-- DRAWING TIMER STYLE -->
      <link rel="alternate stylesheet" id="timer-drawing-style" disabled=true type="text/css" href="CSS/screen-style/timer-drawing-style.css"/>
 
-     <!-- DISPLAY ALL PROMPTS STARTS -->
-     <!-- DISPLAY ALL PROMPTS ENDS -->
+     <!-- DISPLAY ALL PROMPTS STYLE -->
+     <link rel="alternate stylesheet" id="chosen-prompt-display-style" disabled=true type="text/css" href="CSS/screen-style/chosen-prompt-display-style.css"/>
 
-     <!-- DISPLAY TOPIC WITH DESCRIPTION STARTS -->
-     <!-- DISPLAY TOPIC WITH DESCRIPTION ENDS -->
+     <!-- DISPLAY TOPIC WITH DESCRIPTION STYLE -->
+     <link rel="alternate stylesheet" id="topic-with-desc-style" disabled=true type="text/css" href="CSS/screen-style/topic-with-desc-style.css">
 
      <!-- BONUS ROUND DISCUSSION STARTS -->
      <!-- BONUS ROUND DISCUSSION ENDS -->
@@ -35,14 +35,22 @@
         function hideAll()
         {
           hideTimerDrawing();
+          hideChosenPromptDisplay();
+          hideTopicWithDesc();
         }
      </script>
+
+     <!-- SCORE KEEPING -->
+     <script type="text/javascript" src="Javascript/score-manager.js"> </script>
 
      <!-- AIRCONSOLE SCREEN SETUP -->
      <script type="text/javascript">
         var airconsole;
         var noActivePlayer = 0;
-        function setupConsole() {
+        var doneVoting = 0;
+
+        function setupConsole()
+        {
           airconsole = new AirConsole();
 
           airconsole.onConnect = function(device_id) {
@@ -66,6 +74,30 @@
               showTimerDrawing();
               countDown();
               newPrompt(Math.min(6, noActivePlayer));
+            }
+
+            if (player != undefined && data.isFinishedVoting !== undefined)
+            {
+              // Check whether all devices have inputted their answer
+              doneVoting++;
+              if(doneVoting >= noActivePlayer)
+              {
+                 airconsole.broadcast({allPlayerVoted: true});
+                 hideChosenPromptDisplay();
+                 doneVoting = 0;
+                 showTopicWithDesc();
+                 printPromptOneByOne();
+              }
+            }
+
+            if (player != undefined && data.noPeopleCorrect !== undefined)
+            {
+              addScore(airconsole.convertDeviceIdToPlayerNumber(player), data.noPeopleCorrect);
+            }
+
+            if(data.showCurrentScore)
+            {
+              printCurrentScore();
             }
           };
 
@@ -99,6 +131,7 @@
         function init() {
           setupConsole();
           hideAll();
+          initScore();
         }
      </script>
   </head>
@@ -131,9 +164,26 @@
     <!-- DRAWING TIMER SCENE ENDS -->
 
     <!-- DISPLAY ALL PROMPTS STARTS -->
+    <div id="chosen-prompt-display">
+      <h3> The Prompts Are: </h3>
+      <div id='prompt'>
+        <p id='prompt1'> A. </p>
+        <p id='prompt2'> B.  </p>
+        <p id='prompt3'> C.  </p>
+        <p id='prompt4'> D.  </p>
+        <p id='prompt5'> E.  </p>
+        <p id='prompt6'> F.  </p>
+        <p id='prompt7'> G.  </p>
+      </div>
+    </div>
     <!-- DISPLAY ALL PROMPTS ENDS -->
 
     <!-- DISPLAY TOPIC WITH DESCRIPTION STARTS -->
+    <div id = "topic-with-desc">
+      <h1 id = "topicLetter"> </h1>
+      <p id = "topicDescTitle"> </p>
+      <p id = "topicDescription"> </p>
+    </div>
     <!-- DISPLAY TOPIC WITH DESCRIPTION ENDS -->
 
     <!-- BONUS ROUND DISCUSSION STARTS -->
