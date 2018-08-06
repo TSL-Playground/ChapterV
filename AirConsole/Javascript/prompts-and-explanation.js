@@ -1,9 +1,10 @@
 var promptLength = prompts.length;
-var playerPromptMap = new Array(10);
+var playerPromptMap;
 var fakePrompt;
 
 function newPrompt(noPlayer)
 {
+  playerPromptMap = new Array(10);
   var chosenNo = new Array(promptLength).fill(false);
   for(var i=0; i<noPlayer+1; i++)
   {
@@ -64,7 +65,7 @@ function printPrompt(noPlayer)
   setPromptOrder(noPlayer);
   for(var i=0; i<noPlayer+1; i++)
   {
-    document.getElementById('prompt' + (i+1)).textContent += prompts[promptOrder[i]];
+    document.getElementById('prompt' + (i+1)).textContent = String.fromCharCode(i+65) + ". " + prompts[promptOrder[i]];
   }
 }
 

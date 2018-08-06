@@ -10,7 +10,6 @@ function initScore()
 function addScore(player, value)
 {
   playerScore[player] += value;
-  // TODO: if(playerScore[player] >= maxScore)
 }
 
 function addBonusPoint(value)
@@ -30,8 +29,19 @@ function printCurrentScore()
 // print all current SCORE
 function printAllScore()
 {
+  document.getElementById('listCurrentScore').textContent = "";
   for (var i=0; i<noActivePlayer; i++)
   {
     document.getElementById('listCurrentScore').textContent += "Player " + (i+1) + ": " + playerScore[i] + "\r\n";
   }
+}
+
+// check whether any of the player have a score >= maxScore
+function checkEndGame()
+{
+  for (var i=0; i<noActivePlayer; i++)
+  {
+    if(playerScore[i] >= maxScore) return true;
+  }
+  return false;
 }

@@ -30,6 +30,9 @@
      <!-- CURRENT SCORE ALL PLAYER STYLE -->
      <link rel="alternate stylesheet" id="all-player-score-controller-style" disabled=true type="text/css" href="CSS/controller-style/all-player-score-controller-style.css"/>
 
+     <!-- GAME ENDS STYLE -->
+     <link rel="alternate stylesheet" id="game-ends-controller-style" disabled=true type="text/css" href="CSS/controller-style/game-ends-controller-style.css"/>
+
      <!-- Scene Manager -->
      <script type="text/javascript" src="Javascript/scene-manager.js"> </script>
      <script>
@@ -44,6 +47,7 @@
           hideAddPointController();
           hideCoinsInit();
           hideAllPlayerScoreController();
+          hideGameEndsController();
         }
      </script>
 
@@ -65,12 +69,7 @@
           * Checks if this device is part of the active game.
           */
          airconsole.onActivePlayersChange = function(player) {
-           /*var div = document.getElementById("player_id");
-           if (player !== undefined && 3 <= player && player <= 6) {
-             div.innerHTML =  (["Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6"][player]);
-           } else {
-             div.innerHTML = "This game can be played by 3-6 people!";
-           }*/
+
          };
 
          /*
@@ -130,21 +129,37 @@
              document.getElementById("currentPoint3").textContent = "Score: " + data.deviceCurrentScore;
            }
 
-           if(data.pressAddPointButton !== undefined)
+           if (data.pressAddPointButton !== undefined)
            {
              addPoint();
            }
-           if(data.pressRemovePointButton !== undefined)
+           if (data.pressRemovePointButton !== undefined)
            {
              removePoint();
            }
-           if(data.pressEndDiscussionButton !== undefined)
+           if (data.pressEndDiscussionButton !== undefined)
            {
              hideAddPointController();
            }
            if (data.CurrentScorePlayer !== undefined)
            {
              showAllPlayerScoreController();
+           }
+
+           if (data.continueGame)
+           {
+             hideAllPlayerScoreController();
+             showTopicDisplay();
+           }
+           if (data.gameIsEnding)
+           {
+             hideAllPlayerScoreController();
+             showGameEndsController();
+           }
+           if (data.pressBackToMenu)
+           {
+             hideAll();
+             showMenuController();
            }
          };
        }
@@ -330,10 +345,25 @@
       <button id='yesButton3'> Yes </button>
       <script>
       document.getElementById("yesButton3").onclick = function() {
-
+        airconsole.message(AirConsole.SCREEN, {pressContinueGame: true});
       }
       </script>
     </div>
     <!-- CURRENT SCORE ALL PLAYER ENDS -->
+
+    <!-- GAME ENDS STARTS -->
+    <div id="game-ends-controller">
+      <h1> Game Ends! </h1>
+      <button id='backToMenuButton'> Back to Menu </button>
+      <script>
+        document.getElementById("backToMenuButton").onclick = function() {
+          airconsole.broadcast({pressBackToMenu: true});
+          init();
+          hideAll();
+          showMenuController();
+        }
+      </script>
+    </div>
+    <!-- GAME ENDS ENDS -->
   </body>
 </html>

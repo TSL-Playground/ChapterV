@@ -210,3 +210,30 @@ function hideAllPlayerScoreController()
   x.style.display = "none";
   jQuery('#all-player-score-controller-style').attr('disabled', true).attr('rel', 'alternate stylesheet');
 }
+
+// ------------- Show/Hide Game End Scene -------------------
+// SCREEN
+function showGameEnds()
+{
+
+}
+
+function hideGameEnds()
+{
+
+}
+
+// CONTROLLER
+function showGameEndsController()
+{
+  var x = document.getElementById("game-ends-controller");
+  x.style.display = "block";
+  jQuery('#game-ends-controller-style').removeAttr('disabled').attr('rel', 'stylesheet');
+}
+
+function hideGameEndsController()
+{
+  var x = document.getElementById("game-ends-controller");
+  x.style.display = "none";
+  jQuery('#game-ends-controller-style').attr('disabled', true).attr('rel', 'alternate stylesheet');
+}

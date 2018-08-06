@@ -115,11 +115,12 @@
             if (data.pressEndDiscussionButton)
             {
               hideTopicWithDesc();
-              if(currentPrompt >= noActivePlayer)
+              if(currentPrompt >= noActivePlayer+1)
               {
                 currentPrompt = 0;
                 showAllPlayerScore();
                 printAllScore();
+                document.getElementById("currentScoreTitle").textContent = "Current Score: ";
                 airconsole.broadcast({CurrentScorePlayer: true});
               }
               else
@@ -127,6 +128,32 @@
                 showTopicWithDesc();
                 printPromptOneByOne();
               }
+            }
+
+            if(data.pressContinueGame)
+            {
+              if(checkEndGame())
+              {
+                //hideAllPlayerScore();
+                //showGameEnds();
+                document.getElementById("currentScoreTitle").textContent = "Game Ends!";
+                airconsole.broadcast({gameIsEnding: true});
+              }
+              else
+              {
+                hideAllPlayerScore();
+                showTimerDrawing();
+                countDown();
+                newPrompt(Math.min(6, noActivePlayer));
+                airconsole.broadcast({continueGame: true});
+              }
+            }
+
+            if(data.pressBackToMenu)
+            {
+              hideAll();
+              initScore();
+              showMenu();
             }
           };
 
@@ -196,13 +223,13 @@
     <div id="chosen-prompt-display">
       <h3> The Prompts Are: </h3>
       <div id='prompt'>
-        <p id='prompt1'> A. </p>
-        <p id='prompt2'> B.  </p>
-        <p id='prompt3'> C.  </p>
-        <p id='prompt4'> D.  </p>
-        <p id='prompt5'> E.  </p>
-        <p id='prompt6'> F.  </p>
-        <p id='prompt7'> G.  </p>
+        <p id='prompt1'>  </p>
+        <p id='prompt2'>  </p>
+        <p id='prompt3'>  </p>
+        <p id='prompt4'>  </p>
+        <p id='prompt5'>  </p>
+        <p id='prompt6'>  </p>
+        <p id='prompt7'>  </p>
       </div>
     </div>
     <!-- DISPLAY ALL PROMPTS ENDS -->

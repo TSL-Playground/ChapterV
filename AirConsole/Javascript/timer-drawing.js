@@ -19,6 +19,7 @@ function countDown()
 {
   // Drawing Countdown
   var timeLimit = 10; //in seconds
+  document.getElementById("timeEnd").innerHTML = "";
   document.getElementById("seconds").innerHTML = timeLimit;
   var x = setInterval(function() {
     timeLimit--;
