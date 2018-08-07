@@ -71,6 +71,7 @@ function printPrompt(noPlayer)
 
 var currentPrompt = 0;
 var currentPlayerProcessed;
+var noPromptProcessed = 0;
 
 function printPromptOneByOne()
 {
@@ -83,6 +84,7 @@ function printPromptOneByOne()
     if(promptOrder[currentPrompt]==playerPromptMap[i])
     {
       currentPlayerProcessed = i;
+      noPromptProcessed++;
       airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingPlayerA: true});
     }
     else airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingOtherPlayer: true});

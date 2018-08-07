@@ -38,6 +38,7 @@
      <script>
         function hideAll()
         {
+          showMenuController();
           hideTopicDisplay();
           hideTimeEnds();
           hideChosenPromptController();
@@ -72,9 +73,10 @@
 
          };
 
-         /*
-          * Makes the device vibrate if the screen says so.
-          */
+         airconsole.getDeviceId = function() {
+           document.getElementById("showPlayerID").textContent = "player " + (airconsole.convertDeviceIdToPlayerNumber(this.device_id)+1);
+         }
+
          airconsole.onMessage = function(from, data) {
            if (from == AirConsole.SCREEN && data.vibrate)
            {
@@ -167,14 +169,15 @@
        function checkEnoughPlayers() {
          var active_players = airconsole.getActivePlayerDeviceIds();
          var connected_controllers = airconsole.getControllerDeviceIds();
-         if (connected_controllers.length < 3) return false;
-         else return true;
+         return true;
        }
 
      </script>
   </head>
 
   <body onload="init(); hideAll();">
+    <p style="float: left; top: -2%; color: white; font-size: 40%; position: absolute;" id="showPlayerID">  </p>
+
     <!-- MENU SCENE STARTS -->
     <div id = "menu-controller">
       <button id="leftButton"> Start </button>

@@ -5,18 +5,22 @@ html {
 body {
   text-align: center;
   background: #09356d;
-  font-size: 40px;
   color: white;
+}
+
+#yourTopicIs {
+  font-size: 40px;
+  margin: auto;
 }
 
 #promptDrawing {
   text-align: center;
   margin: auto;
-  margin-top: -10%;
+  margin-top: 0%;
   width: 85%;
   border-style: solid;
   border-color: #09356d;
   background-color: #3775c6;
   color: white;
-  font-size: 80px;
+  font-size: 35px;
 }

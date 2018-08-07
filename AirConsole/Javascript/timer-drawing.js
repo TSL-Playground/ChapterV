@@ -15,9 +15,9 @@ function coolDown()
   }, 1000);
 }
 
+// Time Drawing Countdown
 function countDown()
 {
-  // Drawing Countdown
   var timeLimit = 10; //in seconds
   document.getElementById("timeEnd").innerHTML = "";
   document.getElementById("seconds").innerHTML = timeLimit;

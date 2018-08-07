@@ -115,9 +115,12 @@
             if (data.pressEndDiscussionButton)
             {
               hideTopicWithDesc();
-              if(currentPrompt >= noActivePlayer+1)
+              console.log("no of active player " + noActivePlayer);
+              console.log("currentPrompt " + currentPrompt);
+              if(currentPrompt >= (noActivePlayer+1) || noPromptProcessed >= noActivePlayer)
               {
                 currentPrompt = 0;
+                noPromptProcessed = 0;
                 showAllPlayerScore();
                 printAllScore();
                 document.getElementById("currentScoreTitle").textContent = "Current Score: ";
@@ -171,16 +174,11 @@
             airconsole.setActivePlayers(6);
             noActivePlayer = 6;
             document.getElementById("wait").innerHTML = "";
-         } else if (connected_controllers.length >= 3){
-            airconsole.setActivePlayers(connected_controllers.length);
-            noActivePlayer = connected_controllers.length;
-            document.getElementById("wait").innerHTML = "";
-         } else if (connected_controllers.length == 2){
-            document.getElementById("wait").innerHTML = "Need at least 1 more players!";
-         } else if (connected_controllers.length == 1) {
-            document.getElementById("wait").innerHTML = "Need at least 2 more players!";
-         } else if (connected_controllers.length == 0) {
-            document.getElementById("wait").innerHTML = "Need at least 3 more players!";
+         }
+         else {
+           airconsole.setActivePlayers(connected_controllers.length);
+           noActivePlayer = connected_controllers.length;
+           document.getElementById("wait").innerHTML = "";
          }
         }
 

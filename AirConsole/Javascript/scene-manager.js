@@ -20,6 +20,8 @@ function showMenuController()
   var x = document.getElementById("menu-controller");
   x.style.display = "block";
   jQuery('#menu-controller-style').removeAttr('disabled').attr('rel', 'stylesheet');
+  var y = document.getElementById("showPlayerID");
+  y.style.display = "none";
 }
 
 function hideMenuController()
@@ -27,6 +29,8 @@ function hideMenuController()
   var x = document.getElementById("menu-controller");
   x.style.display = "none";
   jQuery('#menu-controller-style').attr('disabled', true).attr('rel', 'alternate stylesheet');
+  var y = document.getElementById("showPlayerID");
+  y.style.display = "block";
 }
 
 // ------------ Hide and Show Drawing Topic/Timer ------------
