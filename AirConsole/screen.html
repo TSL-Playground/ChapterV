@@ -47,6 +47,7 @@
         var noActivePlayer = 0;
         var doneVoting = 0;
         var doneAnswer = 0;
+        var masterControllerId;
 
         function setupConsole()
         {
@@ -75,29 +76,18 @@
               newPrompt(Math.min(6, noActivePlayer));
             }
 
-            if (player != undefined && data.isFinishedVoting !== undefined)
-            {
-              // Check whether all devices have inputted their answer
-              doneVoting++;
-              if(doneVoting >= noActivePlayer)
-              {
-                 airconsole.broadcast({allPlayerVoted: true});
-                 hideChosenPromptDisplay();
-                 doneVoting = 0;
-                 showTopicWithDesc();
-                 printPromptOneByOne();
-              }
-            }
-
             if (player != undefined && data.isFinishedAnswer !== undefined)
             {
-              // Check whether all devices have inputted their points
-              doneAnswer++;
-              if(doneAnswer >= noActivePlayer)
+              if (device_id == masterControllerId)
               {
-                 airconsole.broadcast({allPlayerAnswered: true});
-                 doneAnswer = 0;
+                airconsole.message(device_id, {playerFinishAnswer: true, isMasterController: true});
               }
+              else airconsole.message(device_id, {playerFinishAnswer: true});
+            }
+
+            if (player != undefined && data.allPlayerFinishedAnswer !== undefined)
+            {
+              airconsole.broadcast({allPlayerAnswered: true});
             }
 
             if (player !== undefined && data.noPeopleCorrect !== undefined)
@@ -112,12 +102,21 @@
 
             if (data.showCurrentScore) { printCurrentScore(); }
 
+            if (player != undefined && data.isFinishedVoting !== undefined)
+            {
+              // master controller says all player is done voting
+              airconsole.broadcast({allPlayerVoted: true});
+              hideChosenPromptDisplay();
+              showTopicWithDesc();
+              printPromptOneByOne();
+            }
+
             if (data.pressEndDiscussionButton)
             {
               hideTopicWithDesc();
               console.log("no of active player " + noActivePlayer);
               console.log("currentPrompt " + currentPrompt);
-              if(currentPrompt >= (noActivePlayer+1) || noPromptProcessed >= noActivePlayer)
+              if(currentPrompt >= (noOfPrompt+1) || noPromptProcessed >= noActivePlayer)
               {
                 currentPrompt = 0;
                 noPromptProcessed = 0;
@@ -159,7 +158,6 @@
               showMenu();
             }
           };
-
         }
         /**
          * Checks if 3-6 players are connected!
@@ -167,6 +165,7 @@
         function checkEnoughPlayers() {
           var active_players = airconsole.getActivePlayerDeviceIds();
           var connected_controllers = airconsole.getControllerDeviceIds();
+          masterControllerId = airconsole.getMasterControllerDeviceId();
           // Only update if the game didn't have active players.
          if (connected_controllers.length >= 6) {
             // Enough controller devices connected to start the game.

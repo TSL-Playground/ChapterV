@@ -109,6 +109,20 @@ function hideChosenPromptController()
   jQuery('#chosen-prompt-controller-style').attr('disabled', true).attr('rel', 'alternate stylesheet');
 }
 
+function showChosenPromptController2()
+{
+  var x = document.getElementById("chosen-prompt-controller-2");
+  x.style.display = "block";
+  jQuery('#chosen-prompt-controller-style-2').removeAttr('disabled').attr('rel', 'stylesheet');
+}
+
+function hideChosenPromptController2()
+{
+  var x = document.getElementById("chosen-prompt-controller-2");
+  x.style.display = "none";
+  jQuery('#chosen-prompt-controller-style-2').attr('disabled', true).attr('rel', 'alternate stylesheet');
+}
+
 function showWaitForOthers()
 {
   var x = document.getElementById("wait-for-others");

@@ -17,6 +17,7 @@
 
      <!-- DISPLAY ALL PROMPTS STYLE -->
      <link rel="alternate stylesheet" id="chosen-prompt-controller-style" disabled=true type="text/css" href="CSS/controller-style/chosen-prompt-controller-style.css"/>
+     <link rel="alternate stylesheet" id="chosen-prompt-controller-style-2" disabled=true type="text/css" href="CSS/controller-style/chosen-prompt-controller-style-2.css"/>
 
      <!-- DISPLAY VOTING PLAYER A STYLE -->
      <link rel="alternate stylesheet" id="voting-player-a-controller-style" disabled=true type="text/css" href="CSS/controller-style/voting-player-a-style.css"/>
@@ -49,6 +50,7 @@
           hideCoinsInit();
           hideAllPlayerScoreController();
           hideGameEndsController();
+          hideChosenPromptController2();
         }
      </script>
 
@@ -100,15 +102,27 @@
            if (from == AirConsole.SCREEN && data.coolDownEnds)
            {
              hideTimeEnds();
-             showChosenPromptController();
+             if (data.isMasterController !== undefined) showChosenPromptController();
+             else showWaitForOthers();
            }
            if (from == AirConsole.SCREEN && data.allPlayerVoted)
            {
              hideWaitForOthers();
+             hideChosenPromptController();
+           }
+           if (from == AirConsole.SCREEN && data.playerFinishAnswer)
+           {
+             if(data.isMasterController)
+             {
+               console.log("isMasterController");
+               showChosenPromptController2();
+             }
+             else showWaitForOthers();
            }
            if (from == AirConsole.SCREEN && data.allPlayerAnswered)
            {
              hideWaitForOthers();
+             hideChosenPromptController2();
              showAddPointController();
              hideCoinsInit();
              airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
@@ -164,6 +178,8 @@
              showMenuController();
            }
          };
+
+
        }
 
        function checkEnoughPlayers() {
@@ -212,23 +228,22 @@
     </div>
     <!-- TIME ENDS SCENE ENDS -->
 
-    <!-- DISPLAY ALL PROMPTS STARTS -->
+    <!-- DISPLAY ALL PROMPTS STARTS (MASTER CONTROLLER ONLY) -->
     <div id = "chosen-prompt-controller">
-      <h1> Are you done voting? </h1>
+      <h1> Are all players done voting? </h1>
       <button id='yesButton'> Yes </button>
       <!-- Yes button pressed -->
       <script>
         document.getElementById("yesButton").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {isFinishedVoting: true});
           hideChosenPromptController();
-          showWaitForOthers();
         };
       </script>
     </div>
     <!-- DISPLAY ALL PROMPTS ENDS -->
 
     <div id = "wait-for-others">
-      <h1> Waiting for other player... </h1>
+      <h2 style="margin-top: 5%"> Answer and Wait for master controller... </h2>
     </div>
 
     <!-- DISPLAY VOTING PLAYER A STARTS -->
@@ -246,37 +261,31 @@
         document.getElementById("button1").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 1});
           hideVotingPlayerA();
-          showWaitForOthers();
           airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button2").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 2});
           hideVotingPlayerA();
-          showWaitForOthers();
           airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button3").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 3});
           hideVotingPlayerA();
-          showWaitForOthers();
           airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button4").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 4});
           hideVotingPlayerA();
-          showWaitForOthers();
           airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button5").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 5});
           hideVotingPlayerA();
-          showWaitForOthers();
           airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("button6").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 6});
           hideVotingPlayerA();
-          showWaitForOthers();
           airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
       </script>
@@ -293,17 +302,28 @@
         document.getElementById("yesButton2").onclick = function() {
           airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 1});
           hideVotingOtherPlayer();
-          showWaitForOthers();
           airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
         document.getElementById("noButton2").onclick = function() {
           hideVotingOtherPlayer();
-          showWaitForOthers();
           airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
         }
       </script>
     </div>
     <!-- DISPLAY VOTING OTHER PLAYER ENDS -->
+
+    <!-- DISPLAY ALL PROMPTS 2 STARTS (MASTER CONTROLLER ONLY) -->
+    <div id = "chosen-prompt-controller-2">
+      <h1 id = "chosenPromptController2Title"> Are all players done answering? </h1>
+      <button id='yesButton4'> Yes </button>
+      <!-- Yes button pressed -->
+      <script>
+        document.getElementById("yesButton4").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {allPlayerFinishedAnswer: true});
+        };
+      </script>
+    </div>
+    <!-- DISPLAY ALL PROMPTS ENDS -->
 
     <!-- BONUS ROUND DISCUSSION STARTS -->
     <div id = "add-point-controller">

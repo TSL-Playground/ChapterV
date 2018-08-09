@@ -1,0 +1,25 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  color: white;
+}
+
+#chosenPromptController2Title{
+  margin-top: 10%;
+}
+
+#yesButton4 {
+  background-color: #3775c6;
+  margin: auto;
+  margin-top: 0%;
+  border: none;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  width: 400px;
+  display: block;
+}
