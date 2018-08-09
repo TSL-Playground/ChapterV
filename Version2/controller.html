@@ -1,0 +1,374 @@
+<html>
+  <head>
+     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+     <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+
+     <script type="text/javascript" src="Javascript/add-remove-point.js"></script>
+
+     <!-- MENU STYLE -->
+     <link rel="stylesheet" id="menu-controller-style" type="text/css" href="CSS/controller-style/menu-controller-style.css"/>
+
+     <!-- HOW TO PLAY STYLE -->
+
+     <!-- DRAWING TIMER SCENE STYLE -->
+     <link rel="alternate stylesheet" id="topic-display-style" disabled=true type="text/css" href="CSS/controller-style/topic-display-style.css"/>
+     <link rel="alternate stylesheet" id="time-ends-style" disabled=true type="text/css" href="CSS/controller-style/time-ends-style.css"/>
+
+     <!-- DISPLAY ALL PROMPTS STYLE -->
+     <link rel="alternate stylesheet" id="chosen-prompt-controller-style" disabled=true type="text/css" href="CSS/controller-style/chosen-prompt-controller-style.css"/>
+
+     <!-- DISPLAY VOTING PLAYER A STYLE -->
+     <link rel="alternate stylesheet" id="voting-player-a-controller-style" disabled=true type="text/css" href="CSS/controller-style/voting-player-a-style.css"/>
+
+     <!-- DISPLAY VOTING OTHER PLAYER STYLE -->
+     <link rel="alternate stylesheet" id="voting-other-player-controller-style" disabled=true type="text/css" href="CSS/controller-style/voting-other-player-style.css"/>
+
+     <!-- BONUS ROUND DISCUSSION STYLE -->
+     <link rel="alternate stylesheet" id="add-point-controller-style" disabled=true type="text/css" href="CSS/controller-style/add-point-controller-style.css"/>
+
+     <!-- CURRENT SCORE ALL PLAYER STYLE -->
+     <link rel="alternate stylesheet" id="all-player-score-controller-style" disabled=true type="text/css" href="CSS/controller-style/all-player-score-controller-style.css"/>
+
+     <!-- GAME ENDS STYLE -->
+     <link rel="alternate stylesheet" id="game-ends-controller-style" disabled=true type="text/css" href="CSS/controller-style/game-ends-controller-style.css"/>
+
+     <!-- Scene Manager -->
+     <script type="text/javascript" src="Javascript/scene-manager.js"> </script>
+     <script>
+        function hideAll()
+        {
+          showMenuController();
+          hideTopicDisplay();
+          hideTimeEnds();
+          hideChosenPromptController();
+          hideWaitForOthers();
+          hideVotingOtherPlayer();
+          hideVotingPlayerA();
+          hideAddPointController();
+          hideCoinsInit();
+          hideAllPlayerScoreController();
+          hideGameEndsController();
+        }
+     </script>
+
+     <!-- Airconsole Controller Setup -->
+     <script type="text/javascript">
+       navigator.vibrate = (navigator.vibrate ||
+                            navigator.webkitVibrate ||
+                            navigator.mozVibrate ||
+                            navigator.msVibrate);
+
+       var airconsole;
+       /**
+        * Sets up the communication to the screen.
+        */
+       function init() {
+         airconsole = new AirConsole({"orientation": "landscape"});
+
+         /*
+          * Checks if this device is part of the active game.
+          */
+         airconsole.onActivePlayersChange = function(player) {
+
+         };
+
+         airconsole.getDeviceId = function() {
+           document.getElementById("showPlayerID").textContent = "player " + (airconsole.convertDeviceIdToPlayerNumber(this.device_id)+1);
+         }
+
+         airconsole.onMessage = function(from, data) {
+           if (from == AirConsole.SCREEN && data.vibrate)
+           {
+             navigator.vibrate(data.vibrate);
+             console.log("Vibrating: " + data.vibrate);
+           }
+           if (data.isStartButtonPressed)
+           {
+             hideMenuController();
+             showTopicDisplay();
+           }
+           if (from == AirConsole.SCREEN && data.prompt!=null)
+           {
+             document.getElementById("promptDrawing").textContent = data.prompt;
+             document.getElementById("promptDrawingDesc").textContent = data.promptDescription;
+           }
+           if (from == AirConsole.SCREEN && data.drawingTimeEnds)
+           {
+             hideTopicDisplay();
+             showTimeEnds();
+           }
+           if (from == AirConsole.SCREEN && data.coolDownEnds)
+           {
+             hideTimeEnds();
+             showChosenPromptController();
+           }
+           if (from == AirConsole.SCREEN && data.allPlayerVoted)
+           {
+             hideWaitForOthers();
+           }
+           if (from == AirConsole.SCREEN && data.allPlayerAnswered)
+           {
+             hideWaitForOthers();
+             showAddPointController();
+             hideCoinsInit();
+             airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+           }
+           if (data.votingPlayerA)
+           {
+             showVotingPlayerA();
+             airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+           }
+           else if (data.votingOtherPlayer)
+           {
+             showVotingOtherPlayer();
+             airconsole.message(AirConsole.SCREEN, {showCurrentScore: true});
+           }
+
+           if (data.deviceCurrentScore !== undefined)
+           {
+             document.getElementById("currentPoint1").textContent = "Score: " + data.deviceCurrentScore;
+             document.getElementById("currentPoint2").textContent = "Score: " + data.deviceCurrentScore;
+             document.getElementById("currentPoint3").textContent = "Score: " + data.deviceCurrentScore;
+           }
+
+           if (data.pressAddPointButton !== undefined)
+           {
+             addPoint();
+           }
+           if (data.pressRemovePointButton !== undefined)
+           {
+             removePoint();
+           }
+           if (data.pressEndDiscussionButton !== undefined)
+           {
+             hideAddPointController();
+           }
+           if (data.CurrentScorePlayer !== undefined)
+           {
+             showAllPlayerScoreController();
+           }
+
+           if (data.continueGame)
+           {
+             hideAllPlayerScoreController();
+             showTopicDisplay();
+           }
+           if (data.gameIsEnding)
+           {
+             hideAllPlayerScoreController();
+             showGameEndsController();
+           }
+           if (data.pressBackToMenu)
+           {
+             hideAll();
+             showMenuController();
+           }
+         };
+       }
+
+       function checkEnoughPlayers() {
+         var active_players = airconsole.getActivePlayerDeviceIds();
+         var connected_controllers = airconsole.getControllerDeviceIds();
+         return true;
+       }
+
+     </script>
+  </head>
+
+  <body onload="init(); hideAll();">
+    <p style="float: left; top: -2%; color: white; font-size: 40%; position: absolute;" id="showPlayerID">  </p>
+
+    <!-- MENU SCENE STARTS -->
+    <div id = "menu-controller">
+      <button id="leftButton"> Start </button>
+      <button id="rightButton"> How to Play </button>
+      <!-- Start Button Pressed -->
+      <script>
+        document.getElementById("leftButton").onclick = function() {
+          if(checkEnoughPlayers())
+          {
+            hideMenuController();
+            showTopicDisplay();
+            airconsole.broadcast({isStartButtonPressed: true})
+          }
+        };
+      </script>
+    </div>
+    <!-- MENU SCENE ENDS -->
+
+    <!-- HOW TO PLAY SCENE STARTS -->
+    <!-- HOW TO PLAY SCENE ENDS -->
+
+    <!-- DRAWING TOPIC SCENE STARTS -->
+    <div id = "topic-display">
+      <h1 id="yourTopicIs"> Draw </h1>
+      <p id="promptDrawing"> </p>
+      <p id="promptDrawingDesc"> </p>
+    </div>
+    <!-- DRAWING TOPIC SCENE ENDS -->
+
+    <!-- TIME ENDS SCENE STARTS -->
+    <div id = "time-ends">
+      <h1> Time Ends!! </h1>
+    </div>
+    <!-- TIME ENDS SCENE ENDS -->
+
+    <!-- DISPLAY ALL PROMPTS STARTS -->
+    <div id = "chosen-prompt-controller">
+      <h1> Are you done voting? </h1>
+      <button id='yesButton'> Yes </button>
+      <!-- Yes button pressed -->
+      <script>
+        document.getElementById("yesButton").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {isFinishedVoting: true});
+          hideChosenPromptController();
+          showWaitForOthers();
+        };
+      </script>
+    </div>
+    <!-- DISPLAY ALL PROMPTS ENDS -->
+
+    <div id = "wait-for-others">
+      <h1> Waiting for other player... </h1>
+    </div>
+
+    <!-- DISPLAY VOTING PLAYER A STARTS -->
+    <div id = "voting-player-a-controller">
+      <p id="currentPoint1"> Score: </p>
+      <h1 id="title1"> How many people get your drawing correct? </h1>
+      <p id="subtitle1"> (including you) </p>
+      <button id='button1'> 1 </button>
+      <button id='button2'> 2 </button>
+      <button id='button3'> 3 </button>
+      <button id='button4'> 4 </button>
+      <button id='button5'> 5 </button>
+      <button id='button6'> 6 </button>
+      <script>
+        document.getElementById("button1").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 1});
+          hideVotingPlayerA();
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
+        }
+        document.getElementById("button2").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 2});
+          hideVotingPlayerA();
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
+        }
+        document.getElementById("button3").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 3});
+          hideVotingPlayerA();
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
+        }
+        document.getElementById("button4").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 4});
+          hideVotingPlayerA();
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
+        }
+        document.getElementById("button5").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 5});
+          hideVotingPlayerA();
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
+        }
+        document.getElementById("button6").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 6});
+          hideVotingPlayerA();
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
+        }
+      </script>
+    </div>
+    <!-- DISPLAY VOTING PLAYER A ENDS -->
+
+    <!-- DISPLAY VOTING OTHER PLAYER STARTS -->
+    <div id = "voting-other-player-controller">
+      <p id="currentPoint2"> Score: </p>
+      <h1 id="title2"> Do you get correct answer? </h1>
+      <button id='yesButton2'> Yes </button>
+      <button id='noButton2'> No </button>
+      <script>
+        document.getElementById("yesButton2").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {noPeopleCorrect: 1});
+          hideVotingOtherPlayer();
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
+        }
+        document.getElementById("noButton2").onclick = function() {
+          hideVotingOtherPlayer();
+          showWaitForOthers();
+          airconsole.message(AirConsole.SCREEN, {isFinishedAnswer: true});
+        }
+      </script>
+    </div>
+    <!-- DISPLAY VOTING OTHER PLAYER ENDS -->
+
+    <!-- BONUS ROUND DISCUSSION STARTS -->
+    <div id = "add-point-controller">
+      <p id='currentPoint3'> Point: </p>
+      <p id='titleDiscuss'> Discuss! </p>
+      <p id="addPointDescription"> and add points for every necessary features you can find in your drawing.
+        If there's an unnecessary or missing features, remove the points! Every 2 unnecessary/missing features will
+        remove 1 point. The number of points is between 0 to 5. </p>
+
+      <div id='coin1'> </div>
+      <div id='coin2'> </div>
+      <div id='coin3'> </div>
+      <div id='coin4'> </div>
+      <div id='coin5'> </div>
+
+      <div id='minus1'> -1 </div>
+      <button id='addPointButton'> Add </button>
+      <button id='removePointButton'> Remove </button>
+      <button id='endDiscussionButton'> End Discussion </button>
+
+      <script>
+        document.getElementById("addPointButton").onclick = function() {
+          addPoint();
+          airconsole.broadcast({pressAddPointButton: true});
+        }
+        document.getElementById("removePointButton").onclick = function() {
+          removePoint();
+          airconsole.broadcast({pressRemovePointButton: true});
+        }
+        document.getElementById("endDiscussionButton").onclick = function() {
+          airconsole.message(AirConsole.SCREEN, {addBonusPointToDevice: currentBonusPoint});
+          airconsole.broadcast({pressEndDiscussionButton: true});
+          hideAddPointController();
+        }
+      </script>
+    </div>
+    <!-- BONUS ROUND DISCUSSION ENDS -->
+
+    <!-- CURRENT SCORE ALL PLAYER STARTS -->
+    <div id="all-player-score-controller">
+      <h1> Continue Game? </h1>
+      <button id='yesButton3'> Yes </button>
+      <script>
+      document.getElementById("yesButton3").onclick = function() {
+        airconsole.message(AirConsole.SCREEN, {pressContinueGame: true});
+      }
+      </script>
+    </div>
+    <!-- CURRENT SCORE ALL PLAYER ENDS -->
+
+    <!-- GAME ENDS STARTS -->
+    <div id="game-ends-controller">
+      <h1> Game Ends! </h1>
+      <button id='backToMenuButton'> Back to Menu </button>
+      <script>
+        document.getElementById("backToMenuButton").onclick = function() {
+          airconsole.broadcast({pressBackToMenu: true});
+          init();
+          hideAll();
+          showMenuController();
+        }
+      </script>
+    </div>
+    <!-- GAME ENDS ENDS -->
+  </body>
+</html>

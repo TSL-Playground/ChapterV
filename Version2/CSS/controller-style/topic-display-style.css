@@ -1,0 +1,37 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  color: white;
+}
+
+#yourTopicIs {
+  font-size: 25px;
+  margin: auto;
+  margin-top: 5%;
+}
+
+#promptDrawing {
+  text-align: center;
+  margin: auto;
+  margin-top: 0%;
+  width: 85%;
+  border-style: solid;
+  border-color: #09356d;
+  background-color: #3775c6;
+  color: white;
+  font-size: 25px;
+}
+
+#promptDrawingDesc {
+  margin: auto;
+  margin-top: 0%;
+  border-style: solid;
+  border-color: #09356d;
+  background-color: #3775c6;
+  color: white;
+  font-size: 20px;
+}

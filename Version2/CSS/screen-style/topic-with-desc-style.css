@@ -1,0 +1,31 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  font-size: 40px;
+  color: white;
+}
+
+#topicLetter {
+  margin: auto;
+  margin-top: -1%;
+}
+
+#topicDescTitle {
+  margin: auto;
+  font-size: 70px;
+}
+
+#topicDescription {
+  text-align: center;
+  margin: auto;
+  width: 85%;
+  border-style: solid;
+  border-color: #09356d;
+  background-color: #3775c6;
+  color: white;
+  font-size: 40px;
+}

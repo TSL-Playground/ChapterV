@@ -1,0 +1,89 @@
+html {
+  overflow-y: hidden;
+}
+
+body {
+  text-align: center;
+  background: #09356d;
+  color: white;
+}
+
+#titleDiscuss {
+  margin: auto;
+  margin-top: 5%;
+  font-size: 30px;
+}
+
+#addPointDescription {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+#addPointButton {
+  position: absolute;
+  float: left;
+  bottom: 0;
+  left: 0;
+  background-color: #3775c6;
+  border: none;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  width: 120px;
+  height: 50px;
+  display: inline-block;
+}
+
+#removePointButton {
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  background-color: #3775c6;
+  border: none;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  width: 160px;
+  height: 50px;
+  display: inline-block;
+}
+
+#minus1 {
+  position: absolute;
+  bottom: 15%;
+  left: 45%;
+}
+
+#endDiscussionButton {
+  position: absolute;
+  float: right;
+  bottom: 0;
+  right: 0;
+  background-color: #134faf;
+  border: none;
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  width: 130px;
+  height: 50px;
+  display: inline-block;
+}
+
+#currentPoint3 {
+  float: right;
+  position: absolute;
+  display: inline-block;
+  right: 1%;
+  top: 0;
+}
+
+#coin1, #coin2, #coin3, #coin4, #coin5 {
+  margin-top: 0%;
+  margin-left: 5%;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  color: #9bc6ff;
+  background-color: #9bc6ff;
+  display: inline-block;
+}
