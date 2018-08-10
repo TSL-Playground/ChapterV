@@ -7,7 +7,12 @@ function coolDown()
     if(timeLimit <= 0)
     {
       clearInterval(x);
-      airconsole.broadcast({coolDownEnds: true});
+      for(var i=0;i<noActivePlayer;i++)
+      {
+        var y = airconsole.convertPlayerNumberToDeviceId(i);
+        if(y == masterControllerId) airconsole.message(y, {coolDownEnds: true, isMasterController: true});
+        else airconsole.message(y, {coolDownEnds: true});
+      }
       hideTimerDrawing();
       showChosenPromptDisplay();
       printPrompt(noActivePlayer);

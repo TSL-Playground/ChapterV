@@ -1,6 +1,7 @@
 var promptLength = prompts.length;
 var playerPromptMap;
 var fakePrompt;
+var noOfPrompt;
 
 function newPrompt(noPlayer)
 {
@@ -25,6 +26,7 @@ function newPrompt(noPlayer)
       no = Math.floor(Math.random() * promptLength);
     }
   }
+  noOfPrompt = noPlayer+1;
 }
 
 // Fisher-Yates Shuffle
@@ -73,19 +75,36 @@ var currentPrompt = 0;
 var currentPlayerProcessed;
 var noPromptProcessed = 0;
 
+function checkPrompt()
+{
+  if (promptOrder[currentPrompt] == fakePrompt) currentPrompt++;
+  var found = false;
+  for(var i=0; i<noActivePlayer; i++)
+  {
+    if (promptOrder[currentPrompt]==playerPromptMap[i] && isDeviceIDActive[i])
+    {
+        Console.log("player disconnect " + currentPrompt);
+        found = true;
+        break;
+    }
+  }
+  if (!found) currentPrompt++;
+  return found;
+}
+
 function printPromptOneByOne()
 {
-  if(promptOrder[currentPrompt] == fakePrompt) currentPrompt++;
+  if (promptOrder[currentPrompt] == fakePrompt) currentPrompt++;
   document.getElementById('topicLetter').textContent = String.fromCharCode(currentPrompt+65);
   document.getElementById('topicDescTitle').textContent = prompts[promptOrder[currentPrompt]];
   document.getElementById('topicDescription').textContent = promptDesc[promptOrder[currentPrompt]];
   for(var i=0; i<noActivePlayer; i++)
   {
-    if(promptOrder[currentPrompt]==playerPromptMap[i])
+    if (promptOrder[currentPrompt]==playerPromptMap[i])
     {
-      currentPlayerProcessed = i;
-      noPromptProcessed++;
-      airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingPlayerA: true});
+        currentPlayerProcessed = i;
+        noPromptProcessed++;
+        airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingPlayerA: true});
     }
     else airconsole.message(airconsole.convertPlayerNumberToDeviceId(i), {votingOtherPlayer: true});
   }
