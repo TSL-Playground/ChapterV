@@ -69,7 +69,7 @@
 
           airconsole.onMessage = function(device_id, data) {
             var player = airconsole.convertDeviceIdToPlayerNumber(device_id);
-            
+
             if (data.gameStart == true)
             {
               console.log("game start " + device_id);
@@ -204,13 +204,8 @@
     <!-- MENU SCENE STARTS -->
     <div id="menu">
       <img id="logo" src="logo-begin-white.png">
-      <button id="startButton"> Start </button>
-      <!-- TODO: add "# players available at bottom right of screen" -->
     </div>
     <!-- MENU SCENE ENDS -->
-
-    <!-- HOW TO PLAY SCENE STARTS -->
-    <!-- HOW TO PLAY SCENE ENDS -->
 
     <!-- DRAWING TIMER SCENE & TOPIC DISPLAY STARTS -->
     <div id="timer-drawing">

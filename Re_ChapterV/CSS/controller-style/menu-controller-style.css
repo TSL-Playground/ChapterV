@@ -4,31 +4,16 @@ html {
 
 body {
   background: #09356d;
-  font-weight: 100;
-  font-size: 40px;
-  color: white;
 }
 
 #leftButton {
   background-color: #3775c6;
-  float: left;
+  margin-left: 10%;
   border: none;
   text-align: center;
   color: white;
   font-size: 50px;
-  width: 40%;
-  height: 100%;
-  display: inline-block;
-}
-
-#rightButton {
-  background-color: #3775c6;
-  float: right;
-  border: none;
-  text-align: center;
-  color: white;
-  font-size: 50px;
-  width: 40%;
+  width: 80%;
   height: 100%;
   display: inline-block;
 }
