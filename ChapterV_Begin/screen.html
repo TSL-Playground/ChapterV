@@ -69,6 +69,17 @@
 
           airconsole.onMessage = function(device_id, data) {
             var player = airconsole.convertDeviceIdToPlayerNumber(device_id);
+            
+            if (data.gameStart == true)
+            {
+              console.log("game start " + device_id);
+              if (device_id == masterControllerId)
+              {
+                airconsole.message(device_id, {gameStartCheck: true, isMasterController: true});
+              }
+              else airconsole.message(device_id, {gameStartCheck: true});
+            }
+
             if (player != undefined && data.isStartButtonPressed !== undefined) {
               hideMenu();
               showTimerDrawing();
@@ -192,9 +203,8 @@
   <body onload="init()">
     <!-- MENU SCENE STARTS -->
     <div id="menu">
-      <img id="logo" src="logo-white.png">
+      <img id="logo" src="logo-begin-white.png">
       <button id="startButton"> Start </button>
-      <button id="howToPlayButton"> How to Play </button>
       <!-- TODO: add "# players available at bottom right of screen" -->
     </div>
     <!-- MENU SCENE ENDS -->

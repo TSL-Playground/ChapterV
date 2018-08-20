@@ -65,6 +65,7 @@
        /**
         * Sets up the communication to the screen.
         */
+
        function init() {
          airconsole = new AirConsole({"orientation": "landscape"});
 
@@ -85,9 +86,23 @@
              navigator.vibrate(data.vibrate);
              console.log("Vibrating: " + data.vibrate);
            }
+
+           if (data.gameStartCheck)
+           {
+             if (data.isMasterController)
+             {
+               showMenuController();
+             }
+             else
+             {
+               showWaitForOthers();
+             }
+           }
+
            if (data.isStartButtonPressed)
            {
              hideMenuController();
+             hideWaitForOthers();
              showTopicDisplay();
            }
            if (from == AirConsole.SCREEN && data.prompt!=null)
@@ -179,8 +194,6 @@
              showMenuController();
            }
          };
-
-
        }
 
        function checkEnoughPlayers() {
@@ -193,18 +206,18 @@
   </head>
 
   <body onload="init(); hideAll();">
-    <p style="float: left; top: -2%; color: white; font-size: 40%; position: absolute;" id="showPlayerID">  </p>
+    <p style="float: left; top: -2%; color: white; font-size: 100%; position: absolute;" id="showPlayerID">  </p>
 
     <!-- MENU SCENE STARTS -->
     <div id = "menu-controller">
       <button id="leftButton"> Start </button>
-      <button id="rightButton"> How to Play </button>
       <!-- Start Button Pressed -->
       <script>
         document.getElementById("leftButton").onclick = function() {
           if(checkEnoughPlayers())
           {
             hideMenuController();
+            hideWaitForOthers();
             showTopicDisplay();
             airconsole.broadcast({isStartButtonPressed: true})
           }
@@ -212,9 +225,6 @@
       </script>
     </div>
     <!-- MENU SCENE ENDS -->
-
-    <!-- HOW TO PLAY SCENE STARTS -->
-    <!-- HOW TO PLAY SCENE ENDS -->
 
     <!-- DRAWING TOPIC SCENE STARTS -->
     <div id = "topic-display">
@@ -226,7 +236,7 @@
 
     <!-- TIME ENDS SCENE STARTS -->
     <div id = "time-ends">
-      <h1> Time Ends!! </h1>
+      <h1 style="margin-top: 10%"> Time Ends!! </h1>
     </div>
     <!-- TIME ENDS SCENE ENDS -->
 
@@ -245,7 +255,7 @@
     <!-- DISPLAY ALL PROMPTS ENDS -->
 
     <div id = "wait-for-others">
-      <h2 style="margin-top: 5%"> Answer and Wait for master controller... </h2>
+      <h2 style="margin-top: 10%"> Answer and Wait for master controller... </h2>
     </div>
 
     <!-- DISPLAY VOTING PLAYER A STARTS -->
