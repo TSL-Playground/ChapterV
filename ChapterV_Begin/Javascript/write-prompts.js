@@ -55,7 +55,13 @@ var prompts = [
 /* 54. */ "The Power Law of Practice",
 /* 55. */ "Risk of Deliberate Practice",
 /* 56. */ "Problems Deliberate Practice Solve",
-/* 57. */ "How to Use Deliberate Practice"
+/* 57. */ "How to Use Deliberate Practice",
+/* 58. */ "Elaboration",
+/* 59. */ "Declarative Information",
+/* 60. */ "Working Memory",
+/* 61. */ "Encoding and Retrieving Memory",
+/* 62. */ "Use Elaboration in Learning",
+/* 63. */ "Complementary Approaches to Elaboration"
 ]
 
 var promptDesc = [
@@ -115,5 +121,11 @@ var promptDesc = [
 /* 54. */ "People usually show rapid improvement early, but then the gains attenuate. When just starting, there is tremendous room for improvement. However, the gains begin to taper because there are fewer and fewer inefficiencies to squeeze out of performance.",
 /* 55. */ "It requires stepping away from the activities that make an endeavor enjoyable. For example, a guitar student might just want to play through all the songs instead of practicing finger drills. Also, it involves flexibility. People may become comfortable in their expertise and stop growing.",
 /* 56. */ "Students hit a plateau and no longer improving. Even after many hours of homework, a student does not have a strong understanding of a topic.",
-/* 57. */ "Focus on specific skills and be goal directed, and go beyond current skill."
+/* 57. */ "Focus on specific skills and be goal directed, and go beyond current skill.",
+/* 58. */ "A way of learning that improves memory by making connections between new information and prior knowledge. Connecting new information to what people already know creates a memory, while repeating something over and over keeps it in people's mind fleetingly.",
+/* 59. */ "Elaboration is a strategy specialized for memorizing declarative information - things about which one can talk.",
+/* 60. */ "A memory system which enables the conscious manipulation of information, for example, when thinking through a problem. It has only temporary storage, so people need to keep refreshing the information.",
+/* 61. */ "Since working memory storage is temporary, people have to file the information away for later use. The way to do it is by encoding the memory, and when the information is needed, the brain can retrieve the information from long-term memory storage.",
+/* 62. */ "Elaboration is useful for memorizing meaningful material, including new vocabulary words, sentences, people's names, directions, or even phone numbers. If the goal is to memorize, elaborations do not need to be correct.",
+/* 63. */ "Using relevant and precise elaborations, which can help create better retrieval paths. Receiving a relevant elaboration was more effective than generating self-elaboration. Chunking, which depends on uniting discrete ideas. Another one is connecting a topic to well-structured knowledge; for example, associate procedures with rooms in a house."
 ]

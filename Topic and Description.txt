@@ -126,4 +126,10 @@ All prompts and description are taken from "The ABCs of How We Learn" - Daniel L
 
 63. Complementary Approaches to Elaboration: Using relevant and precise elaborations, which can help create better retrieval paths. Receiving a relevant elaboration was more effective than generating self-elaboration. Chunking, which depends on uniting discrete ideas. Another one is connecting a topic to well-structured knowledge; for example, associate procedures with rooms in a house.
 
-64. Cued Recall: 
+64. Cued Recall: Under this condition, a thought or stimulus cues memory for an associated  idea. Most school-based memory tests rely on cued recall: Given the name of a vocabulary word, remember the definition. Having more connections between the possible cues and the memory will improve the chances of retrieving the answer.
+
+65. Elaboration Strategies: Some examples include, create a mental picture, invent a story or sentence, draw similarities and differences to what they already know. 
+
+66. Cognitive Overload: Cognitive overload can block opportunities for elaboration. Perhaps you have had the experience of being introduced to someone and forgetting her name within a minute. You were probably putting most of your cognitive resources into social aspects of the introduction (e.g., observing reaction), so you didn't have the cognitive resources to spare for elaborating the name and committing it to long-term memory. 
+
+67. 
